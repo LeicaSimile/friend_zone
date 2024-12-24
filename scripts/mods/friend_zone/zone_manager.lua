@@ -91,7 +91,7 @@ manager.show = function(zone, template_id, radius, position)
 		end
 
 		-- Set colour
-		local red, green, blue, alpha = 0.8, 0, 0.1, 0.5
+		local red, green, blue, alpha = 0.6, 0, 0, 0.3
 		local colour = Quaternion.identity()
 		Quaternion.set_xyzw(colour, red, green, blue, 0)
 		Unit.set_vector4_for_material(zone.object, "projector", "particle_color", colour, true)

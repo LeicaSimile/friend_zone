@@ -11,6 +11,10 @@ local templates = {
         link = false,
         zone_group = "grenade_aim",
     },
+    vet_smoke_grenade_active = {
+        link = true,
+        zone_group = "smoke_active",
+    },
     zealot_stun_grenade_aim = {
         link = false,
         zone_group = "grenade_aim",
@@ -26,5 +30,6 @@ return {
             ogryn_grenade_frag = "ogryn_frag_grenade_aim",
             shock_grenade = "zealot_stun_grenade_aim",
         },
+        smoke_active = "vet_smoke_grenade_active",
     },
 }
