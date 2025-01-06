@@ -1,6 +1,6 @@
 -- Author: LeicaSimile
 local mod = get_mod("friend_zone")
-local ZoneManager = mod:io_dofile("friend_zone/scripts/mods/friend_zone/zone_manager")
+local ZoneManager = mod:io_dofile("friend_zone/scripts/mods/friend_zone/core/zone_manager")
 local ZoneTemplates = mod:io_dofile("friend_zone/scripts/mods/friend_zone/zone_templates")
 
 local AttackSettings = require("scripts/settings/damage/attack_settings")
@@ -60,8 +60,12 @@ mod:hook_safe("AimProjectileEffects", "_set_trajectory_positions_spline", functi
             if pos then
                 local radius = nil
                 if not zone.active then
-                    local explosion_template = weapon_template.projectile_template.damage.fuse.explosion_template
-                    radius = get_explosion_radius(player, explosion_template)
+                    if template.radius then
+                        radius = template.radius
+                    else
+                        local explosion_template = weapon_template.projectile_template.damage.fuse.explosion_template
+                        radius = get_explosion_radius(player, explosion_template)
+                    end
                     mod:echo("Radius (%s): %s", weapon_name, radius)
                     mod:echo("Target pos: <%s, %s, %s>", pos[1], pos[2], pos[3])
                 end

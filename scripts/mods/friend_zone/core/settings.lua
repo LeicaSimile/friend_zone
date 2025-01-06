@@ -12,16 +12,15 @@ settings.get = function(setting)
     return val
 end
 
-settings.get_zone_rgba = function(group_id)
-    return settings.get(group_id .. "_colour_red") / 100,
-        settings.get(group_id .. "_colour_green") / 100,
-        settings.get(group_id .. "_colour_blue") / 100,
-        settings.get(group_id .. "_colour_alpha") / 100
+settings.get_zone_rgba = function(setting_prefix)
+    return settings.get(setting_prefix .. "_colour_red") / 100,
+        settings.get(setting_prefix .. "_colour_green") / 100,
+        settings.get(setting_prefix .. "_colour_blue") / 100,
+        settings.get(setting_prefix .. "_colour_alpha") / 100
 end
 
-settings.is_enabled = function(group_id)
-    --return settings.get(group_id .. "_outline_enabled")
-    return true
+settings.is_enabled = function(setting_prefix)
+    return settings.get(setting_prefix .. "_zone_enabled")
 end
 
 settings.clear_cache = function()

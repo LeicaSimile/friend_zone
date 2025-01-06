@@ -1,6 +1,6 @@
 local mod = get_mod("friend_zone")
-local Queue = mod:io_dofile("friend_zone/scripts/mods/friend_zone/queue")
-local Settings = mod:io_dofile("friend_zone/scripts/mods/friend_zone/settings")
+local Queue = mod:io_dofile("friend_zone/scripts/mods/friend_zone/core/queue")
+local Settings = mod:io_dofile("friend_zone/scripts/mods/friend_zone/core/settings")
 local Validators = mod:io_dofile("friend_zone/scripts/mods/friend_zone/validators")
 local ZoneTemplates = mod:io_dofile("friend_zone/scripts/mods/friend_zone/zone_templates")
 
@@ -39,7 +39,7 @@ manager.get = function(template_id, parent, world, ...)
 	if manager.loaded_package(manager.get, template_id, parent, world, ...) then
 		local template = ZoneTemplates.templates[template_id]
 		local validator = template.validator
-		local setting_enabled = template.setting_enabled or template.setting_group
+		local setting_enabled = template.setting_enabled or template.setting_prefix
 		local zone_enabled = Settings.is_enabled(setting_enabled)
 		local zone_valid = validator == nil or Validators[validator](...)
 		local should_show = zone_enabled and zone_valid
@@ -91,7 +91,7 @@ manager.show = function(zone, template_id, radius, position)
 		end
 
 		-- Set colour
-		local red, green, blue, alpha = 0.6, 0, 0, 0.3
+		local red, green, blue, alpha = Settings.get_zone_rgba(template.setting_colour or template.setting_prefix)
 		local colour = Quaternion.identity()
 		Quaternion.set_xyzw(colour, red, green, blue, 0)
 		Unit.set_vector4_for_material(zone.object, "projector", "particle_color", colour, true)
